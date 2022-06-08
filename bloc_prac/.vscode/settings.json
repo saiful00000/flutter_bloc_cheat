@@ -1,0 +1,12 @@
+{
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "editor.codeLens": false,
+    "editor.colorDecorators": true,
+    "editor.columnSelection": false,
+    "editor.fastScrollSensitivity": 5,
+    "dart.devToolsTheme": "dark",
+    "workbench.colorTheme": "Material Theme Darker",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.preferredHighContrastColorTheme": "Monokai",
+    "material-icon-theme.activeIconPack": "angular"
+}
