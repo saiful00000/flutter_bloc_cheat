@@ -8,3 +8,13 @@ class LoadTodoEvent extends TodoEvent{
   @override
   List<Object?> get props => [];
 }
+
+class SearchTodoEvent extends TodoEvent{
+  final String searchKey;
+
+  SearchTodoEvent(this.searchKey);
+
+  @override
+  List<Object?> get props => [];
+
+}

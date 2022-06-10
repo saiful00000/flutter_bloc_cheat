@@ -1,19 +1,38 @@
-import 'package:bloc_network/data/repository/todo_repository.dart';
-import 'package:bloc_network/presentation/router/app_route_names.dart';
-
-import '../../business_logic/blocs/todo_bloc/todo_bloc/todo_bloc.dart';
-import '../../business_logic/blocs/todo_bloc/todo_bloc/todo_event.dart';
-import '../../business_logic/blocs/todo_bloc/todo_bloc/todo_state.dart';
+import 'package:bloc_network/business_logic/blocs/todo_bloc/todo_bloc/todo_bloc.dart';
+import 'package:bloc_network/business_logic/blocs/todo_bloc/todo_bloc/todo_event.dart';
+import 'package:bloc_network/business_logic/blocs/todo_bloc/todo_bloc/todo_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class SearchTodoScreen extends StatelessWidget {
+  SearchTodoScreen({Key? key}) : super(key: key);
+
+  final _searchNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Todos')),
+      appBar: AppBar(
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        title: TextFormField(
+          focusNode: _searchNode,
+          decoration: InputDecoration(
+            fillColor: Colors.blueGrey.shade50,
+            filled: true,
+            contentPadding: const EdgeInsets.all(8),
+            prefixIcon: const Icon(Icons.search),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+          onChanged: (val){
+            BlocProvider.of<TodoBloc>(context).add(SearchTodoEvent(val));
+          },
+        ),
+      ),
       body: BlocBuilder<TodoBloc, TodoState>(
         builder: (context, state) {
           if (state is TodoLoadingState) {
@@ -45,13 +64,6 @@ class HomeScreen extends StatelessWidget {
             return Container();
           }
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.pushNamed(context, AppRouteNames.SEARCH_TODO_SCREEN);
-        },
-        backgroundColor: Colors.purple.shade900,
-        child: const Icon(Icons.search),
       ),
     );
   }
